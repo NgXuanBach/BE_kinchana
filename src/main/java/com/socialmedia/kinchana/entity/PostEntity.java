@@ -17,10 +17,10 @@ public class PostEntity {
     private String video;
     @Column(name = "date")
     private Date date;
-    @Column(name = "likeQuantity")
+    @Column(name = "likequantity")
     private int likeQuantity;
     @ManyToOne()
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userid")
     UserEntity user;
     @Column(name = "content")
     private String content;

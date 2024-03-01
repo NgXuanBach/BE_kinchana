@@ -19,17 +19,17 @@ public class UserEntity {
     private String password;
 
     @ManyToOne()
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "roleid")
     RoleEntity role;
 
     @OneToMany(mappedBy = "user1")
-    Set<MessageEntity> message;
-    @OneToMany(mappedBy = "user2")
-    Set<MessageEntity> message2;
+    Set<MessageEntity> message1;
+//    @OneToMany(mappedBy = "user2")
+//    Set<MessageEntity> message2;
     @OneToMany(mappedBy = "user1")
     Set<RelationshipEntity> relationship1;
-    @OneToMany(mappedBy = "user2")
-    Set<RelationshipEntity> relationship2;
+//    @OneToMany(mappedBy = "user2")
+//    Set<RelationshipEntity> relationship2;
     @OneToMany(mappedBy = "user")
     Set<CommentEntity> comments;
     @OneToMany(mappedBy = "user")
@@ -37,13 +37,13 @@ public class UserEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "date")
+    @Column(name = "birthday")
     private Date birthDay;
 
     @Column(name = "about")
     private String about;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phonenumber")
     private String phoneNumber;
 
     @Column(name = "gender")
@@ -61,10 +61,10 @@ public class UserEntity {
     @Column(name = "avatar")
     private String avatar;
 
-    @Column(name = "coverImage")
+    @Column(name = "coverimage")
     private String coverImage;
 
-    @Column(name = "imageStock")
+    @Column(name = "imagestock")
     private String imageStock;
 
     @Column(name = "followers")
@@ -201,21 +201,21 @@ public class UserEntity {
         this.followersQuantity = followersQuantity;
     }
 
-    public Set<MessageEntity> getMessage() {
-        return message;
+    public Set<MessageEntity> getMessage1() {
+        return message1;
     }
 
-    public void setMessage(Set<MessageEntity> message) {
-        this.message = message;
+    public void setMessage1(Set<MessageEntity> message) {
+        this.message1 = message;
     }
 
-    public Set<MessageEntity> getMessage2() {
-        return message2;
-    }
-
-    public void setMessage2(Set<MessageEntity> message2) {
-        this.message2 = message2;
-    }
+//    public Set<MessageEntity> getMessage2() {
+//        return message2;
+//    }
+//
+//    public void setMessage2(Set<MessageEntity> message2) {
+//        this.message2 = message2;
+//    }
 
     public Set<RelationshipEntity> getRelationship1() {
         return relationship1;
@@ -224,14 +224,14 @@ public class UserEntity {
     public void setRelationship1(Set<RelationshipEntity> relationship1) {
         this.relationship1 = relationship1;
     }
-
-    public Set<RelationshipEntity> getRelationship2() {
-        return relationship2;
-    }
-
-    public void setRelationship2(Set<RelationshipEntity> relationship2) {
-        this.relationship2 = relationship2;
-    }
+//
+//    public Set<RelationshipEntity> getRelationship2() {
+//        return relationship2;
+//    }
+//
+//    public void setRelationship2(Set<RelationshipEntity> relationship2) {
+//        this.relationship2 = relationship2;
+//    }
 
     public Set<CommentEntity> getComments() {
         return comments;

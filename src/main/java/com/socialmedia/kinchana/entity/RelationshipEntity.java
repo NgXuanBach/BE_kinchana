@@ -11,14 +11,14 @@ public class RelationshipEntity {
     @EmbeddedId
     private UserRelationshipIds ids;
     @ManyToOne()
-    @JoinColumn(name = "userId1", insertable = false,updatable = false)
+    @JoinColumn(name = "userid1", insertable = false,updatable = false)
     UserEntity user1;
 
     @ManyToOne()
-    @JoinColumn(name = "userId2", insertable = false,updatable = false)
+    @JoinColumn(name = "userid2", insertable = false,updatable = false)
     UserEntity user2;
     @ManyToOne()
-    @JoinColumn(name = "statusId")
+    @JoinColumn(name = "statusid")
     RelationShipStatusEntity relationshipStatus;
     @Column(name = "date")
     private Date date;

@@ -11,16 +11,16 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne()
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userid")
     UserEntity user;
     @ManyToOne()
-    @JoinColumn(name = "postId")
+    @JoinColumn(name = "postid")
     PostEntity post;
     @Column(name = "content")
     private String content;
     @Column(name = "date")
     private Date date;
-    @Column(name = "likeQuantity")
+    @Column(name = "likequantity")
     private int likeQuantity;
 
     public CommentEntity() {

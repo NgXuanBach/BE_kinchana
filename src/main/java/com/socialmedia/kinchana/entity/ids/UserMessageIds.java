@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 @Embeddable
 public class UserMessageIds implements Serializable {
-    @Column(name = "userId1")
+    @Column(name = "userid1")
     private int user1;
 
-    @Column(name = "userId2")
+    @Column(name = "userid2")
     private int user2;
 
     public UserMessageIds(int user1, int user2) {
