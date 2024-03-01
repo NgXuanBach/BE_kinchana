@@ -14,11 +14,11 @@ public class MessageEntity {
     private String timeLine;
 
     @ManyToOne()
-    @JoinColumn(name = "userId1", insertable = false,updatable = false)
+    @JoinColumn(name = "userid1", insertable = false,updatable = false)
     UserEntity user1;
 
     @ManyToOne()
-    @JoinColumn(name = "userId2", insertable = false,updatable = false)
+    @JoinColumn(name = "userid2", insertable = false,updatable = false)
     UserEntity user2;
 
 }
