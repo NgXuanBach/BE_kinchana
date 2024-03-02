@@ -1,6 +1,6 @@
 package com.socialmedia.kinchana.entity.ids;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
 

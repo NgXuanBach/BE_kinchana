@@ -1,7 +1,7 @@
 package com.socialmedia.kinchana.entity;
 
 import com.socialmedia.kinchana.entity.ids.UserMessageIds;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity(name = "message")
 
