@@ -1,7 +1,7 @@
 package com.socialmedia.kinchana.entity;
 
 import com.socialmedia.kinchana.entity.ids.UserRelationshipIds;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.sql.Date;
 

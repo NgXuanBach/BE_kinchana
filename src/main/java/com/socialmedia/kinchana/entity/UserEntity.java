@@ -1,6 +1,6 @@
 package com.socialmedia.kinchana.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.sql.Date;
 import java.util.Set;
