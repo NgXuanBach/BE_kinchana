@@ -25,13 +25,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
-                .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(request->request.requestMatchers("/signin","/signup/**", "/user","/user/**").permitAll())
-                .authorizeHttpRequests(request->request.anyRequest().authenticated())
-               .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+        return httpSecurity.csrf().disable() // Tắt cấu hình liên quan đến tấn công CSRF
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // khai báo không sử dụng session trong project
+                .and()
+                .authorizeHttpRequests()   // Quy định lại các rule liên quan tới chứng thực cho link được gọi
+                .antMatchers("/signin", "/signup", "/demo/**","/category").permitAll()  // cho phép vào luôn ko cần chứng thực
+                .anyRequest().authenticated() // Tất cả các link còn lại cần phải chứng thực
+                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)//add filter cua minh truoc filtersecurity
                 .build();
     }
     @Autowired
