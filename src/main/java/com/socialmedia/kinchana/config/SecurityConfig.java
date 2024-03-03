@@ -25,7 +25,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf().disable() // Tắt cấu hình liên quan đến tấn công CSRF
+        return httpSecurity.csrf().disable().cors().disable() // Tắt cấu hình liên quan đến tấn công CSRF
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // khai báo không sử dụng session trong project
                 .and()
                 .authorizeHttpRequests()   // Quy định lại các rule liên quan tới chứng thực cho link được gọi
