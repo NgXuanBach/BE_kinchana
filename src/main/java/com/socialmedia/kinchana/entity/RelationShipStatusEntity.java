@@ -12,7 +12,7 @@ public class RelationShipStatusEntity {
     @Column(name = "name")
     private int name;
     @OneToMany(mappedBy = "relationshipStatus")
-    private Set<RelationshipEntity> relationships;
+    private Set<UserRelationshipXrefEntity> relationships;
 
     public int getId() {
         return id;
@@ -30,11 +30,11 @@ public class RelationShipStatusEntity {
         this.name = name;
     }
 
-    public Set<RelationshipEntity> getRelationships() {
+    public Set<UserRelationshipXrefEntity> getRelationships() {
         return relationships;
     }
 
-    public void setRelationships(Set<RelationshipEntity> relationships) {
+    public void setRelationships(Set<UserRelationshipXrefEntity> relationships) {
         this.relationships = relationships;
     }
 }

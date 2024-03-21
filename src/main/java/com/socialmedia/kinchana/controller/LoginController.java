@@ -30,6 +30,7 @@ public class LoginController {
     public ResponseEntity<?> sigin(@RequestBody SigninRequest request){
         logger.info("Request:"+gson.toJson(request));
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword());
+        authenticationManager.authenticate(token);
         BaseResponse response = new BaseResponse();
         response.setData(jwtHelper.generateToken(request.getEmail()));
         response.setMessage("Authenticated");
