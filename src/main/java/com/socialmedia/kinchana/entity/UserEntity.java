@@ -1,8 +1,11 @@
 package com.socialmedia.kinchana.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "user")
@@ -17,19 +20,15 @@ public class UserEntity {
 
     @Column(name = "password")
     private String password;
-
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "userId1")
+    @JsonManagedReference
+    private Set<UserMessageEntity> friendMessage = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "userId")
+    @JsonManagedReference
+    private Set<UserRelationshipXrefEntity> friends = new HashSet<>();
     @ManyToOne()
     @JoinColumn(name = "roleid")
     RoleEntity role;
-
-    @OneToMany(mappedBy = "user1")
-    Set<MessageEntity> message1;
-//    @OneToMany(mappedBy = "user2")
-//    Set<MessageEntity> message2;
-    @OneToMany(mappedBy = "user1")
-    Set<RelationshipEntity> relationship1;
-//    @OneToMany(mappedBy = "user2")
-//    Set<RelationshipEntity> relationship2;
     @OneToMany(mappedBy = "user")
     Set<CommentEntity> comments;
     @OneToMany(mappedBy = "user")
@@ -66,9 +65,8 @@ public class UserEntity {
 
     @Column(name = "imagestock")
     private String imageStock;
-
     @Column(name = "followers")
-    private int followersQuantity;
+    private Integer followersQuantity;
 
     public UserEntity() {
     }
@@ -193,45 +191,13 @@ public class UserEntity {
         this.imageStock = imageStock;
     }
 
-    public int getFollowersQuantity() {
-        return followersQuantity;
+    public Set<UserRelationshipXrefEntity> getFriends() {
+        return friends;
     }
 
-    public void setFollowersQuantity(int followersQuantity) {
-        this.followersQuantity = followersQuantity;
+    public void setFriends(Set<UserRelationshipXrefEntity> friends) {
+        this.friends = friends;
     }
-
-    public Set<MessageEntity> getMessage1() {
-        return message1;
-    }
-
-    public void setMessage1(Set<MessageEntity> message) {
-        this.message1 = message;
-    }
-
-//    public Set<MessageEntity> getMessage2() {
-//        return message2;
-//    }
-//
-//    public void setMessage2(Set<MessageEntity> message2) {
-//        this.message2 = message2;
-//    }
-
-    public Set<RelationshipEntity> getRelationship1() {
-        return relationship1;
-    }
-
-    public void setRelationship1(Set<RelationshipEntity> relationship1) {
-        this.relationship1 = relationship1;
-    }
-//
-//    public Set<RelationshipEntity> getRelationship2() {
-//        return relationship2;
-//    }
-//
-//    public void setRelationship2(Set<RelationshipEntity> relationship2) {
-//        this.relationship2 = relationship2;
-//    }
 
     public Set<CommentEntity> getComments() {
         return comments;
@@ -247,5 +213,21 @@ public class UserEntity {
 
     public void setPosts(Set<PostEntity> posts) {
         this.posts = posts;
+    }
+
+    public Set<UserMessageEntity> getFriendMessage() {
+        return friendMessage;
+    }
+
+    public void setFriendMessage(Set<UserMessageEntity> friendMessage) {
+        this.friendMessage = friendMessage;
+    }
+
+    public Integer getFollowersQuantity() {
+        return followersQuantity;
+    }
+
+    public void setFollowersQuantity(Integer followersQuantity) {
+        this.followersQuantity = followersQuantity;
     }
 }
