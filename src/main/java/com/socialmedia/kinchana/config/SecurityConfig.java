@@ -24,11 +24,12 @@ public class SecurityConfig {
     private JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf().disable().cors().disable() // Tắt cấu hình liên quan đến tấn công CSRF
+        return httpSecurity.cors().and().csrf().disable() // Tắt cấu hình liên quan đến tấn công CSRF
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // khai báo không sử dụng session trong project
                 .and()
                 .authorizeHttpRequests()   // Quy định lại các rule liên quan tới chứng thực cho link được gọi
-                .antMatchers("/signin", "/signup", "/user/**","/user").permitAll()  // cho phép vào luôn ko cần chứng thực
+                .antMatchers("/signin","/signin/**", "/signup","/signup/**").permitAll()  // cho phép vào luôn ko cần chứng thực
+//                .antMatchers("/user/**","/user").hasAuthority("user")
                 .anyRequest().authenticated() // Tất cả các link còn lại cần phải chứng thực
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)//add filter cua minh truoc filtersecurity

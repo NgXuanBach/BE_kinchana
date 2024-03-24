@@ -15,8 +15,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "gmail")
-    private String gmail;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -79,12 +79,12 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getGmail() {
-        return gmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
+    public void setEmail(String gmail) {
+        this.email = gmail;
     }
 
     public String getPassword() {
