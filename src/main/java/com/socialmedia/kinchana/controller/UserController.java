@@ -19,5 +19,4 @@ public class UserController {
     public ResponseEntity<?> getUserById(@RequestParam int id) {
         return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
     }
-
 }

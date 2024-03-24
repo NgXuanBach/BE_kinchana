@@ -4,6 +4,7 @@ import com.socialmedia.kinchana.entity.UserEntity;
 import com.socialmedia.kinchana.repository.UserRepository;
 import com.socialmedia.kinchana.utils.JwtHelper;
 import io.jsonwebtoken.Claims;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,33 +31,36 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtHelper jwtHelper;
     private Logger logger = LoggerFactory.getLogger(JwtFilter.class);
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String token = request.getHeader("Authentication");
-            if(token!=null && token.startsWith("Bearer ")){
+            String token = request.getHeader("Authorization");
+            System.out.println("check header :" + token);
+            if (token != null && token.startsWith("Bearer ")) {
                 token = token.substring(7);
                 Claims claims = null;
                 try {
                     claims = jwtHelper.decodeToken(token);
-                }catch (Exception e){
+                } catch (Exception e) {
                     logger.warn(e.getMessage());
                 }
-                if(claims!=null){
-                    UserEntity user = userRepository.findByGmail(claims.getSubject());
-                    if(user!=null){
+                if (claims != null) {
+                    UserEntity user = userRepository.findByEmail(claims.getSubject());
+                    if (user != null) {
                         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
                         authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
-                        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getGmail(),"",authorities);
+                        UsernamePasswordAuthenticationToken authenticationToken =
+                                new UsernamePasswordAuthenticationToken(user.getEmail(), "", authorities);
                         SecurityContext context = SecurityContextHolder.getContext();
-                        context.setAuthentication(authenticationToken);
+                            context.setAuthentication(authenticationToken);
                     }
                 }
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.warn(e.getMessage());
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }

@@ -1,4 +1,6 @@
 package com.socialmedia.kinchana.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.util.Set;
@@ -13,6 +15,7 @@ public class RoleEntity {
     private String name;
 
     @OneToMany(mappedBy = "role")
+    @JsonIgnore
     Set<UserEntity> users;
 
     public RoleEntity() {

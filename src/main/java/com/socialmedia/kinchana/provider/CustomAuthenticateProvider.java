@@ -28,7 +28,7 @@ public class CustomAuthenticateProvider  implements AuthenticationProvider {
         try {
             String email = authentication.getName();
             String password = authentication.getCredentials().toString();
-            UserEntity user = userRepository.findByGmail(email);
+            UserEntity user = userRepository.findByEmail(email);
             if(user!=null){
                 if(passwordEncoder.matches(password,user.getPassword())){
                     return new UsernamePasswordAuthenticationToken(email,password,new ArrayList<>());
