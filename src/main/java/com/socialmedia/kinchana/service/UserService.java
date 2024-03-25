@@ -5,12 +5,16 @@ import com.socialmedia.kinchana.entity.UserEntity;
 import com.socialmedia.kinchana.exception.CustomException;
 import com.socialmedia.kinchana.payload.request.SignupRequest;
 import com.socialmedia.kinchana.payload.response.LoginSigupResponse;
+import com.socialmedia.kinchana.payload.response.UserResponse;
 import com.socialmedia.kinchana.repository.UserRepository;
 import com.socialmedia.kinchana.service.imp.UserServiceImp;
 import com.socialmedia.kinchana.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService implements UserServiceImp {
@@ -42,7 +46,7 @@ public class UserService implements UserServiceImp {
         }
     }
 
-//    @Override
+    //    @Override
 //    public boolean deleteUser(int userId) {
 //        boolean isSuccess = false;
 //        try {
@@ -79,24 +83,43 @@ public class UserService implements UserServiceImp {
 //        }
 //        return isSuccess;
 //    }
-//    @Override
-//    public List<UserResponse> getAllUser() {
-//        try {
-//            List<UserResponse> listUser = new ArrayList<>();
-//            List<UserEntity> userEntityList = userRepository.findAll();
-//            for (UserEntity item :
-//                    userEntityList) {
-//                UserResponse user = new UserResponse();
-//                user.setId(item.getId());
-//                user.setName(item.getUsername());
-//                user.setRoleId(item.getRole().getId());
-//                listUser.add(user);
-//            }
-//            return listUser;
-//        } catch (Exception e) {
-//            throw new CustomException("Lỗi add user " + e.getMessage());
-//        }
-//    }
+    @Override
+    public List<UserResponse> getAllUser() {
+        try {
+            List<UserResponse> listUser = new ArrayList<>();
+            List<UserEntity> userEntityList = userRepository.findAll();
+            for (UserEntity item :
+                    userEntityList) {
+                UserResponse user = new UserResponse();
+                user.setId(item.getId());
+                user.setName(item.getName());
+                user.setRoleId(item.getRole().getId());
+                user.setEmail(item.getEmail());
+                listUser.add(user);
+            }
+            return listUser;
+        } catch (Exception e) {
+            throw new CustomException("Lỗi add user " + e.getMessage());
+        }
+    }
+
+    @Override
+    public UserResponse getUserByName(String userName) {
+        try {
+            UserEntity userEntity = userRepository.findByName(userName);
+            if (userEntity != null) {
+                UserResponse user = new UserResponse();
+                user.setId(userEntity.getId());
+                user.setEmail(userEntity.getEmail());
+                user.setName(userEntity.getName());
+                user.setRoleId(userEntity.getRole().getId());
+                return user;
+            }
+        } catch (Exception e) {
+            throw new CustomException("Lỗi get user by name " + e.getMessage(), 401);
+        }
+        return null;
+    }
 //
 //    @Override
 //    public int getUserIdByToken(String token) {

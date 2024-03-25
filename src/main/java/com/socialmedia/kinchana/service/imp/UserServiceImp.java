@@ -4,6 +4,7 @@ package com.socialmedia.kinchana.service.imp;
 import com.socialmedia.kinchana.payload.request.FindUserIdRequest;
 import com.socialmedia.kinchana.payload.request.SignupRequest;
 import com.socialmedia.kinchana.payload.response.LoginSigupResponse;
+import com.socialmedia.kinchana.payload.response.UserResponse;
 
 import java.util.List;
 
@@ -16,7 +17,8 @@ public interface UserServiceImp {
 //
 //    boolean updateUserRole(int userId, int roleId);
 
-//    List<UserResponse> getAllUser();
+    List<UserResponse> getAllUser();
+    UserResponse getUserByName(String userName);
 //
 //    int getUserIdByToken(String token);
 //    boolean changePassword(ChangePasswordRequest request);
