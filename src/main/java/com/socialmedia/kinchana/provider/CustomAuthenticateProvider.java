@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -25,23 +26,19 @@ public class CustomAuthenticateProvider  implements AuthenticationProvider {
     private UserRepository userRepository;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        try {
-            String email = authentication.getName();
-            String password = authentication.getCredentials().toString();
-            UserEntity user = userRepository.findByEmail(email);
-            if(user!=null){
-                if(passwordEncoder.matches(password,user.getPassword())){
-                    return new UsernamePasswordAuthenticationToken(email,password,new ArrayList<>());
-                }
-            }
-        }catch (Exception e){
-
+        String email = authentication.getName();
+        String password = authentication.getCredentials().toString();
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return new UsernamePasswordAuthenticationToken(email, user.getPassword(), new ArrayList<>());
+        } else {
+            throw new BadCredentialsException("The password's incorrect or the user doesn't exist.");
         }
-        return null;
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
+        //khai báo loại chứng thực sử dụng để so sánh
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

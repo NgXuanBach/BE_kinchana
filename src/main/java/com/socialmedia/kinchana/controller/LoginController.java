@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class LoginController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -36,18 +37,20 @@ public class LoginController {
     UserServiceImp userServiceImp;
     private Gson gson = new Gson();
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
-    @RequestMapping(value = "/signin",method= RequestMethod.POST)
-    public ResponseEntity<?> sigin(@RequestBody SigninRequest request){
-        logger.info("Request:"+gson.toJson(request));
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword());
+
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    public ResponseEntity<?> sigin(@RequestBody SigninRequest request) {
+        logger.info("Request:" + gson.toJson(request));
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
         authenticationManager.authenticate(token);
         BaseResponse response = new BaseResponse();
         response.setData(jwtHelper.generateToken(request.getEmail()));
         response.setMessage("Authenticated");
         response.setStatusCode(200);
-        logger.info("Response:"+gson.toJson(response));
+        logger.info("Response:" + gson.toJson(response));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<?> signup(@RequestBody @Valid SignupRequest request, BindingResult result) {
         logger.info("Request :" + gson.toJson(request));

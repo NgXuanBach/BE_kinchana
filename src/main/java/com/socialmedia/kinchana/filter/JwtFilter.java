@@ -1,6 +1,8 @@
 package com.socialmedia.kinchana.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.socialmedia.kinchana.entity.UserEntity;
+import com.socialmedia.kinchana.payload.response.BaseResponse;
 import com.socialmedia.kinchana.repository.UserRepository;
 import com.socialmedia.kinchana.utils.JwtHelper;
 import io.jsonwebtoken.Claims;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -60,7 +63,18 @@ public class JwtFilter extends OncePerRequestFilter {
 
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            returnBaseReponseEntity(response, e.getMessage(), 500);
         }
         filterChain.doFilter(request, response);
+    }
+    private void returnBaseReponseEntity(HttpServletResponse response, String message, int statusCode) throws IOException {
+        BaseResponse baseResponse = new BaseResponse();
+        response.setStatus(HttpStatus.OK.value());
+        response.setContentType("application/json");
+        baseResponse.setMessage(message);
+        baseResponse.setStatusCode(statusCode);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(response.getWriter(), baseResponse);
+        return;
     }
 }
