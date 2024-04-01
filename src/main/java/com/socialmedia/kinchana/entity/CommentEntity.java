@@ -3,6 +3,7 @@ package com.socialmedia.kinchana.entity;
 import javax.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity(name = "comment")
 
@@ -19,7 +20,7 @@ public class CommentEntity {
     @Column(name = "content")
     private String content;
     @Column(name = "date")
-    private Date date;
+    private LocalDateTime date;
     @Column(name = "likequantity")
     private int likeQuantity;
 
@@ -58,11 +59,11 @@ public class CommentEntity {
         this.content = content;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

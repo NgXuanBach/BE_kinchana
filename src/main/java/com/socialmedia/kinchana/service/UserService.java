@@ -120,7 +120,8 @@ public class UserService implements UserServiceImp {
         }
         return null;
     }
-//
+
+    //
 //    @Override
 //    public int getUserIdByToken(String token) {
 //        try {
@@ -155,18 +156,45 @@ public class UserService implements UserServiceImp {
 //        }
 //        return isSuccess;
 //    }
-//    @Override
-//    public UserResponse getUserByToken(String token) {
-//        try {
-//            UserResponse user = new UserResponse();
-//            String email = jwtHelper.decodeToken(token).getSubject();
-//            user.setEmail(email);
-//            user.setName(userRepository.findByEmail(email).getUsername());
-//            return user;
-//        } catch (Exception e) {
-//            throw new CustomException("Lỗi get username by token " + e.getMessage(),401);
-//        }
-//    }
+    @Override
+    public UserResponse getUserByToken(String token) {
+        try {
+            UserResponse user = new UserResponse();
+            String email = jwtHelper.decodeToken(token).getSubject();
+            UserEntity userEntity = userRepository.findByEmail(email);
+            user.setEmail(userEntity.getEmail());
+            user.setGender(userEntity.getGender());
+            user.setAddress(userEntity.getAddress());
+            user.setHobbies(userEntity.getHobbies());
+            user.setAbout(userEntity.getAbout());
+            user.setPassword(userEntity.getPassword());
+            user.setJob(userEntity.getJob());
+            user.setId(userEntity.getId());
+            user.setPhoneNumber(userEntity.getPhoneNumber());
+            user.setBirthDay(userEntity.getBirthDay());
+            user.setJoined(userEntity.getJoined());
+            user.setRoleId(userEntity.getRole().getId());
+            user.setName(userRepository.findByEmail(email).getName());
+            return user;
+        } catch (Exception e) {
+            throw new CustomException("Lỗi get username by token " + e.getMessage(), 401);
+        }
+    }
+
+    @Override
+    public UserResponse getUserById(int id) {
+        try {
+            UserResponse user = new UserResponse();
+            UserEntity userEntity = userRepository.findById(id);
+            user.setEmail(userEntity.getEmail());
+            user.setId(userEntity.getId());
+            user.setRoleId(userEntity.getRole().getId());
+            user.setName(userEntity.getName());
+            return user;
+        } catch (Exception e) {
+            throw new CustomException("Lỗi get username by id " + e.getMessage(), 401);
+        }
+    }
 //
 //    @Override
 //    public int getRoleIdByToken(String request) {

@@ -5,9 +5,10 @@ import com.socialmedia.kinchana.payload.request.FindUserIdRequest;
 import com.socialmedia.kinchana.payload.request.SignupRequest;
 import com.socialmedia.kinchana.payload.response.LoginSigupResponse;
 import com.socialmedia.kinchana.payload.response.UserResponse;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public interface UserServiceImp {
     void addUser(SignupRequest request);
 
@@ -22,6 +23,8 @@ public interface UserServiceImp {
 //
 //    int getUserIdByToken(String token);
 //    boolean changePassword(ChangePasswordRequest request);
-//    UserResponse getUserByToken(String token);
+    UserResponse getUserByToken(String token);
+    UserResponse getUserById(int id);
 //    int getRoleIdByToken(String request);
+
 }

@@ -3,6 +3,7 @@ package com.socialmedia.kinchana.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "message")
 
@@ -12,17 +13,15 @@ public class UserMessageEntity {
     private int id;
     @Column(name = "content")
     private String content;
-    @Column(name = "date")
-    private String timeLine;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid1", referencedColumnName = "id")
+    @JoinColumn(name = "senderid", referencedColumnName = "id")
     @JsonBackReference
-    private UserEntity userId1;
+    private UserEntity senderId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid2", referencedColumnName = "id")
+        @JoinColumn(name = "recipientid", referencedColumnName = "id")
     @JsonBackReference
-    private UserEntity userId2;
+    private UserEntity recipientId;
 
     public int getId() {
         return id;
@@ -40,27 +39,19 @@ public class UserMessageEntity {
         this.content = content;
     }
 
-    public String getTimeLine() {
-        return timeLine;
+    public UserEntity getSenderId() {
+        return senderId;
     }
 
-    public void setTimeLine(String timeLine) {
-        this.timeLine = timeLine;
+    public void setSenderId(UserEntity userId1) {
+        this.senderId = userId1;
     }
 
-    public UserEntity getUserId1() {
-        return userId1;
+    public UserEntity getRecipientId() {
+        return recipientId;
     }
 
-    public void setUserId1(UserEntity userId1) {
-        this.userId1 = userId1;
-    }
-
-    public UserEntity getUserId2() {
-        return userId2;
-    }
-
-    public void setUserId2(UserEntity userId2) {
-        this.userId2 = userId2;
+    public void setRecipientId(UserEntity userId2) {
+        this.recipientId = userId2;
     }
 }

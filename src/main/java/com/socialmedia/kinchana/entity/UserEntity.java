@@ -20,7 +20,7 @@ public class UserEntity {
 
     @Column(name = "password")
     private String password;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "userId1")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "senderId")
     @JsonManagedReference
     private Set<UserMessageEntity> friendMessage = new HashSet<>();
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "userId")
@@ -53,6 +53,8 @@ public class UserEntity {
 
     @Column(name = "job")
     private String job;
+    @Column(name = "hobbies")
+    private String hobbies;
 
     @Column(name = "joined")
     private Date joined;
@@ -229,5 +231,13 @@ public class UserEntity {
 
     public void setFollowersQuantity(Integer followersQuantity) {
         this.followersQuantity = followersQuantity;
+    }
+
+    public String getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(String hobbies) {
+        this.hobbies = hobbies;
     }
 }
