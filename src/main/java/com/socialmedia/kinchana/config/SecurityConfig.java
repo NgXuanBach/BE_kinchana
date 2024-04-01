@@ -24,29 +24,33 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfig {
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Autowired
     private JwtFilter jwtFilter;
+
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new AuthenticationEntryPointConfig();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.cors().and().csrf().disable() // Tắt cấu hình liên quan đến tấn công CSRF
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // khai báo không sử dụng session trong project
                 .and()
                 .authorizeHttpRequests()   // Quy định lại các rule liên quan tới chứng thực cho link được gọi
-                .antMatchers("/signin","/user/**","/user", "/signup").permitAll()  // cho phép vào luôn ko cần chứng thực
-//                .antMatchers("/user/**","/user").hasAuthority("user")
+                .antMatchers("/signin", "/user/**", "/user", "/signup","/uploadfile/**","/downloadfile/**","/userrelationship/**","/usermessage/**").permitAll()  // cho phép vào luôn ko cần chứng thực
+                .antMatchers("/user/**","/user").hasAnyAuthority("user","admin")
                 .anyRequest().authenticated() // Tất cả các link còn lại cần phải chứng thực
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)//add filter cua minh truoc filtersecurity
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
                 .and().build();
     }
+
     private void addCustomFilters(HttpSecurity http) throws Exception {
         // Add the custom LoggingFilter before JwtFilter
         http.addFilterBefore(new JwtFilter(), JwtFilter.class);
@@ -54,13 +58,16 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://127.0.0.1:5500/");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+        config.addAllowedHeader("*");
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 
@@ -68,8 +75,10 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         return new CorsFilter(corsConfigurationSource());
     }
+
     @Autowired
     private CustomAuthenticateProvider authenticateProvider;
+
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)

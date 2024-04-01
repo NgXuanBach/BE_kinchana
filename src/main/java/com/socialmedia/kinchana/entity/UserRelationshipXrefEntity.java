@@ -15,7 +15,7 @@ public class UserRelationshipXrefEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid", referencedColumnName = "id")
     @JsonBackReference
-    private UserEntity userId;
+        private UserEntity userId;
     @MapsId("friendId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friendid", referencedColumnName = "id")
@@ -64,7 +64,7 @@ public class UserRelationshipXrefEntity {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(Date dateTime) {
+        this.date = dateTime;
     }
 }
