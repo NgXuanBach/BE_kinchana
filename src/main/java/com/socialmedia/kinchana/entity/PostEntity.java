@@ -14,8 +14,6 @@ public class PostEntity {
     private int id;
     @Column(name = "image")
     private String image;
-    @Column(name = "video")
-    private String video;
     @Column(name = "date")
     private LocalDateTime date;
     @Column(name = "likequantity")
@@ -42,14 +40,6 @@ public class PostEntity {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getVideo() {
-        return video;
-    }
-
-    public void setVideo(String video) {
-        this.video = video;
     }
 
     public LocalDateTime getDate() {
