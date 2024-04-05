@@ -14,4 +14,6 @@ import java.util.List;
 public interface UserRelationshipXrefsRepository extends JpaRepository<UserRelationshipXrefEntity, UserRelationshipId> {
     @Query(value = "SELECT * FROM user_relationship_xrefs WHERE userid = ?1", nativeQuery = true)
     List<UserRelationshipXrefEntity> findByUserId(int userId);
+    @Query(value = "SELECT * FROM user_relationship_xrefs WHERE friendid = ?1", nativeQuery = true)
+    List<UserRelationshipXrefEntity> findByFriendId(int friendId);
 }

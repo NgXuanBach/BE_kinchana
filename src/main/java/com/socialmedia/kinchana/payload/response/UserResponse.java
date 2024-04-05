@@ -15,8 +15,81 @@ public class UserResponse {
     private String about;
     private Date birthDay;
     private Date joined;
+    private String username;
+    private int followersNumber;
+    private int postsNumber;
     private String phoneNumber;
+    private int friendsCapacity;
+    private int followingNumber;
+    private String avatar;
+    private String coverImage;
+    private String imageStock;
+
     public UserResponse() {
+    }
+
+    public String getImageStock() {
+        return imageStock;
+    }
+
+    public void setImageStock(String imageStock) {
+        this.imageStock = imageStock;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public int getFollowingNumber() {
+        return followingNumber;
+    }
+
+    public void setFollowingNumber(int followingNumber) {
+        this.followingNumber = followingNumber;
+    }
+
+    public int getFriendsCapacity() {
+        return friendsCapacity;
+    }
+
+    public void setFriendsCapacity(int friendsCapacity) {
+        this.friendsCapacity = friendsCapacity;
+    }
+
+    public int getFollowersNumber() {
+        return followersNumber;
+    }
+
+    public void setFollowersNumber(int followersNumber) {
+        this.followersNumber = followersNumber;
+    }
+
+    public int getPostsNumber() {
+        return postsNumber;
+    }
+
+    public void setPostsNumber(int postsNumber) {
+        this.postsNumber = postsNumber;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPhoneNumber() {

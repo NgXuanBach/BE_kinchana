@@ -10,7 +10,9 @@ public class SignupRequest {
     @NotNull(message = "Name not null")
     @NotEmpty(message = "Name not empty")
     private String name;
-
+    @NotNull(message = "Name not null")
+    @NotEmpty(message = "Name not empty")
+    private String username;
     @NotNull
     @NotEmpty
     @Length(min=8)
@@ -42,5 +44,13 @@ public class SignupRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

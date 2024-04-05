@@ -20,12 +20,12 @@ public class UserEntity {
 
     @Column(name = "password")
     private String password;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "senderId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "senderId")
     @JsonManagedReference
     private Set<UserMessageEntity> friendMessage = new HashSet<>();
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "userId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userId")
     @JsonManagedReference
-    private Set<UserRelationshipXrefEntity> friends = new HashSet<>();
+    private Set<UserRelationshipXrefEntity> relationship = new HashSet<>();
     @ManyToOne()
     @JoinColumn(name = "roleid")
     RoleEntity role;
@@ -58,6 +58,8 @@ public class UserEntity {
 
     @Column(name = "joined")
     private Date joined;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "avatar")
     private String avatar;
@@ -68,7 +70,7 @@ public class UserEntity {
     @Column(name = "imagestock")
     private String imageStock;
     @Column(name = "followers")
-    private Integer followersQuantity;
+    private Integer followersQuantity = 0;
 
     public UserEntity() {
     }
@@ -193,12 +195,12 @@ public class UserEntity {
         this.imageStock = imageStock;
     }
 
-    public Set<UserRelationshipXrefEntity> getFriends() {
-        return friends;
+    public Set<UserRelationshipXrefEntity> getRelationship() {
+        return relationship;
     }
 
-    public void setFriends(Set<UserRelationshipXrefEntity> friends) {
-        this.friends = friends;
+    public void setRelationship(Set<UserRelationshipXrefEntity> friends) {
+        this.relationship = friends;
     }
 
     public Set<CommentEntity> getComments() {
@@ -239,5 +241,13 @@ public class UserEntity {
 
     public void setHobbies(String hobbies) {
         this.hobbies = hobbies;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
